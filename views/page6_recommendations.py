@@ -146,7 +146,7 @@ def show():
         paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)",
         font=dict(family="Plus Jakarta Sans", size=13)
     )
-    st.plotly_chart(fig, use_container_width=True,key="p6_impact_chart")
+    st.plotly_chart(fig, width='stretch',key="p6_impact_chart")
     st.markdown("</div>", unsafe_allow_html=True)
 
     st.markdown("<div class='divider'></div>", unsafe_allow_html=True)

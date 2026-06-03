@@ -46,10 +46,10 @@ html, body, [class*="css"] { font-family: 'DM Sans', sans-serif; background-colo
 
 with st.sidebar:
     st.sidebar.title("Kayfa")
-    try: st.image(r"C:\Ali's folder\CS\Kayfa\Task 1\streamlit\kayfa_logo.png", use_container_width=True)
+    try: st.image("kayfa_logo.png", width='stretch')
     except Exception: st.markdown("### 🏢 Kayfa")
     st.markdown("---"); st.markdown("**NAVIGATION**")
-    page = st.radio("", ["🏠  Overview","📈  Attrition by Job & Career","🏡  Workplace & Flexibility","🧑🤝🧑  Demographics","⚖   Work-Life & Wellbeing","🎯  Key Findings & Recommendations"], label_visibility="collapsed")
+    page = st.radio("Navigation", ["🏠  Overview","📈  Attrition by Job & Career","🏡  Workplace & Flexibility","🧑🤝🧑  Demographics","⚖   Work-Life & Wellbeing","🎯  Key Findings & Recommendations"], label_visibility="collapsed")
     st.markdown("---"); st.markdown("Employee Attrition Analysis  \n`Dataset: Train + Test merged`")
 
 # ── CHANGED: pages. → views. ─────────────────────────────────────

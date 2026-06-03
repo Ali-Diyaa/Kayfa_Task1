@@ -82,7 +82,7 @@ def show():
             fig.update_layout(yaxis=dict(range=[0,80], title="Left Rate (%)"),
                 xaxis_title="Job Level", margin=dict(t=20,b=20,l=20,r=20), height=300,
                 paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)", font=dict(family="DM Sans"))
-            st.plotly_chart(fig, use_container_width=True, key="p2_job_bar")
+            st.plotly_chart(fig, width='stretch', key="p2_job_bar")
 
             # Bubble
             st.markdown("<div class='section-title' style='margin-top:10px'>Bubble: Headcount vs Avg Income</div>", unsafe_allow_html=True)
@@ -99,7 +99,7 @@ def show():
             fig_bub.update_layout(height=300, margin=dict(t=10,b=10,l=10,r=10),
                 yaxis_title="Avg Monthly Income ($)", coloraxis_showscale=False,
                 paper_bgcolor="rgba(0,0,0)", plot_bgcolor="rgba(0,0,0,0)")
-            st.plotly_chart(fig_bub, use_container_width=True, key="p2_job_bubble")
+            st.plotly_chart(fig_bub, width='stretch', key="p2_job_bubble")
             st.markdown("</div>", unsafe_allow_html=True)
 
         with col_r:
@@ -128,7 +128,7 @@ def show():
             fig2.update_layout(yaxis_title="Left Rate (%)", xaxis_title="Number of Promotions",
                 coloraxis_showscale=False, margin=dict(t=20,b=20,l=20,r=20), height=300,
                 paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)", font=dict(family="DM Sans"))
-            st.plotly_chart(fig2, use_container_width=True, key="p2_promo_bar")
+            st.plotly_chart(fig2, width='stretch', key="p2_promo_bar")
 
             # Bubble
             st.markdown("<div class='section-title' style='margin-top:10px'>Bubble: Promotions vs Tenure</div>", unsafe_allow_html=True)
@@ -144,7 +144,7 @@ def show():
             fig_bub2.update_layout(height=300, margin=dict(t=10,b=10,l=10,r=10),
                 yaxis_title="Avg Years at Company", coloraxis_showscale=False,
                 paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)")
-            st.plotly_chart(fig_bub2, use_container_width=True, key="p2_promo_bubble")
+            st.plotly_chart(fig_bub2, width='stretch', key="p2_promo_bubble")
             st.markdown("</div>", unsafe_allow_html=True)
 
         with col_r:
@@ -167,7 +167,7 @@ def show():
         fig3.update_layout(xaxis_title="Monthly Income ($)", yaxis_title="Number of Employees",
             legend_title_text="", margin=dict(t=10,b=10,l=10,r=10), height=300,
             paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)", font=dict(family="DM Sans"))
-        st.plotly_chart(fig3, use_container_width=True, key="p2_income_hist")
+        st.plotly_chart(fig3, width='stretch', key="p2_income_hist")
 
         # Bubble
         st.markdown("<div class='section-title' style='margin-top:10px'>Bubble: Income Bins vs Attrition Rate</div>", unsafe_allow_html=True)
@@ -184,7 +184,7 @@ def show():
         fig_bub3.update_layout(height=300, xaxis_title="Avg Income in Bin ($)",
             yaxis_title="Left Rate (%)", coloraxis_showscale=False,
             paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)")
-        st.plotly_chart(fig_bub3, use_container_width=True, key="p2_income_bubble")
+        st.plotly_chart(fig_bub3, width='stretch', key="p2_income_bubble")
         st.markdown("</div>", unsafe_allow_html=True)
 
         st.markdown("""
@@ -204,7 +204,7 @@ def show():
             fig4.update_layout(xaxis_title="Years at Company", yaxis_title="Count",
                 legend_title_text="", margin=dict(t=10,b=10,l=10,r=10), height=300,
                 paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)", font=dict(family="DM Sans"))
-            st.plotly_chart(fig4, use_container_width=True, key="p2_tenure_hist")
+            st.plotly_chart(fig4, width='stretch', key="p2_tenure_hist")
 
             # Bubble
             st.markdown("<div class='section-title' style='margin-top:10px'>Bubble: Tenure Risk Profile</div>", unsafe_allow_html=True)
@@ -220,7 +220,7 @@ def show():
                 hover_data={"Left_Rate":":.1f"})
             fig_bub4.update_layout(height=300, yaxis_title="Avg Income ($)",
                 coloraxis_showscale=False, paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)")
-            st.plotly_chart(fig_bub4, use_container_width=True, key="p2_tenure_bubble")
+            st.plotly_chart(fig_bub4, width='stretch', key="p2_tenure_bubble")
             st.markdown("</div>", unsafe_allow_html=True)
 
         with col_r:

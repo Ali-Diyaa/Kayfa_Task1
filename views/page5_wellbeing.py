@@ -94,7 +94,7 @@ def show():
                     text=[f"{v:.1f}%" for v in wlb_sorted["Left_Rate"]], textposition="outside", width=0.45
                 ))
                 fig.update_layout(yaxis_title="Left Rate (%)", height=320, margin=dict(t=20,b=20,l=20,r=20), paper_bgcolor="rgba(0,0,0,0)")
-                st.plotly_chart(fig, use_container_width=True, key="p5_wlb_bar")
+                st.plotly_chart(fig, width='stretch', key="p5_wlb_bar")
 
                 st.markdown('<div class="section-title">Bubble: WLB vs Income & Tenure</div>', unsafe_allow_html=True)
                 wlb_sum = df.groupby("Work-Life Balance").agg(
@@ -108,7 +108,7 @@ def show():
                     hover_name="Work-Life Balance", size_max=60,
                     color_continuous_scale=["#22C55E","#F59E0B","#EF4444"])
                 fig_b.update_layout(height=300, xaxis_title="Avg Tenure (yrs)", yaxis_title="Avg Income")
-                st.plotly_chart(fig_b, use_container_width=True, key="p5_wlb_bubble")
+                st.plotly_chart(fig_b, width='stretch', key="p5_wlb_bubble")
                 st.markdown('</div>', unsafe_allow_html=True)
 
         with col_r:
@@ -138,7 +138,7 @@ def show():
                     color="Left_Rate", color_continuous_scale=["#22C55E","#F59E0B","#EF4444"])
                 fig2.update_traces(textposition="outside")
                 fig2.update_layout(height=300, yaxis_title="Left Rate (%)", coloraxis_showscale=False)
-                st.plotly_chart(fig2, use_container_width=True, key="p5_recog_bar")
+                st.plotly_chart(fig2, width='stretch', key="p5_recog_bar")
 
                 st.markdown('<div class="section-title">Bubble: Recognition vs Promotions</div>', unsafe_allow_html=True)
                 rec_sum = df.groupby("Employee Recognition").agg(
@@ -150,7 +150,7 @@ def show():
                 fig_rb = px.scatter(rec_sum, x="Employee Recognition", y="Avg_Promos", size="Total",
                     color="Left_Rate", size_max=60, color_continuous_scale=["#22C55E","#F59E0B","#EF4444"])
                 fig_rb.update_layout(height=280, yaxis_title="Avg Promotions")
-                st.plotly_chart(fig_rb, use_container_width=True, key="p5_recog_bubble")
+                st.plotly_chart(fig_rb, width='stretch', key="p5_recog_bubble")
                 st.markdown('</div>', unsafe_allow_html=True)
         with col_r:
             with st.container():
@@ -173,7 +173,7 @@ def show():
                     text=perf_df["Left_Rate"].map(lambda v: f"{v:.1f}%"))
                 fig3.update_traces(line_color="#2563EB", marker=dict(size=10), textposition="top center")
                 fig3.update_layout(height=300, yaxis_title="Left Rate (%)")
-                st.plotly_chart(fig3, use_container_width=True, key="p5_perf_line")
+                st.plotly_chart(fig3, width='stretch', key="p5_perf_line")
 
                 st.markdown('<div class="section-title">Bubble: Performance vs Income</div>', unsafe_allow_html=True)
                 perf_sum = df.groupby("Performance Rating").agg(
@@ -185,7 +185,7 @@ def show():
                 fig_pb = px.scatter(perf_sum, x="Performance Rating", y="Avg_Income", size="Total",
                     color="Left_Rate", size_max=60, color_continuous_scale=["#22C55E","#F59E0B","#EF4444"])
                 fig_pb.update_layout(height=280, yaxis_title="Avg Income")
-                st.plotly_chart(fig_pb, use_container_width=True, key="p5_perf_bubble")
+                st.plotly_chart(fig_pb, width='stretch', key="p5_perf_bubble")
                 st.markdown('</div>', unsafe_allow_html=True)
         with col_r:
             with st.container():
@@ -210,7 +210,7 @@ def show():
                     color="Left_Rate", color_continuous_scale=["#22C55E","#F59E0B","#EF4444"])
                 fig4.update_traces(textposition="outside")
                 fig4.update_layout(height=270, yaxis_title="Left Rate (%)", coloraxis_showscale=False)
-                st.plotly_chart(fig4, use_container_width=True, key="p5_size_bar")
+                st.plotly_chart(fig4, width='stretch', key="p5_size_bar")
             with c_r:
                 st.markdown("""
                 <div class="insight-box" style="margin-top:1rem">🏢 Size shows minimal variation (~47-50% across all).</div>
@@ -227,5 +227,5 @@ def show():
             fig_sb = px.scatter(size_sum, x="Company Size", y="Avg_Distance", size="Total",
                 color="Left_Rate", size_max=60, color_continuous_scale=["#22C55E","#F59E0B","#EF4444"])
             fig_sb.update_layout(height=280, yaxis_title="Avg Distance from Home")
-            st.plotly_chart(fig_sb, use_container_width=True, key="p5_size_bubble")
+            st.plotly_chart(fig_sb, width='stretch', key="p5_size_bubble")
             st.markdown('</div>', unsafe_allow_html=True)

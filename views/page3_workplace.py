@@ -95,13 +95,13 @@ def show():
                 textposition="outside", width=0.4))
             fig.update_layout(yaxis_title="Left Rate (%)", height=280, margin=dict(t=20,b=20,l=20,r=20),
                 paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)")
-            st.plotly_chart(fig, use_container_width=True, key="p3_remote_bar")
+            st.plotly_chart(fig, width='stretch', key="p3_remote_bar")
 
             st.markdown("<div class='section-title'>Attrition Split (Filtered)</div>", unsafe_allow_html=True)
             pie = px.pie(df_f, names="Attrition", hole=0.5,
                 color="Attrition", color_discrete_map={"Stayed":"#22C55E","Left":"#EF4444"})
             pie.update_layout(height=250, margin=dict(t=10,b=10,l=10,r=10), paper_bgcolor="rgba(0,0,0,0)")
-            st.plotly_chart(pie, use_container_width=True, key="p3_remote_pie")
+            st.plotly_chart(pie, width='stretch', key="p3_remote_pie")
             st.markdown("</div>", unsafe_allow_html=True)
 
         with col_r:
@@ -122,7 +122,7 @@ def show():
             hover_name="Remote Work", size_max=80, color_continuous_scale=["#22C55E","#F59E0B","#EF4444"])
         fig_b.update_layout(height=320, xaxis_title="Avg Distance from Home (km)", yaxis_title="Avg Monthly Income ($)",
             coloraxis_showscale=False, paper_bgcolor="rgba(0,0,0,0)")
-        st.plotly_chart(fig_b, use_container_width=True, key="p3_remote_bubble")
+        st.plotly_chart(fig_b, width='stretch', key="p3_remote_bubble")
         st.markdown("</div>", unsafe_allow_html=True)
 
     # ── OVERTIME ───────────────────────────────────────────────────────
@@ -136,11 +136,11 @@ def show():
                 textposition="outside", width=0.4))
             fig2.update_layout(yaxis_title="Left Rate (%)", height=280, margin=dict(t=20,b=20,l=20,r=20),
                 paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)")
-            st.plotly_chart(fig2, use_container_width=True, key="p3_ot_bar")
+            st.plotly_chart(fig2, width='stretch', key="p3_ot_bar")
 
             pie2 = px.pie(df_f, names="Overtime", hole=0.5, color_discrete_sequence=px.colors.qualitative.Set2)
             pie2.update_layout(title="Overtime Distribution (Filtered)", height=250, margin=dict(t=30,b=10))
-            st.plotly_chart(pie2, use_container_width=True, key="p3_ot_pie")
+            st.plotly_chart(pie2, width='stretch', key="p3_ot_pie")
             st.markdown("</div>", unsafe_allow_html=True)
         with col_r:
             st.markdown("<div class='section-card'><div class='section-title'>Key Insight</div>", unsafe_allow_html=True)
@@ -155,7 +155,7 @@ def show():
         fig_b2 = px.scatter(bub2, x="Job Level", y="Left_Rate", size="Total", color="Overtime",
             size_max=60, color_discrete_map={"Yes":"#EF4444","No":"#22C55E"})
         fig_b2.update_layout(height=320, yaxis_title="Left Rate (%)", paper_bgcolor="rgba(0,0,0,0)")
-        st.plotly_chart(fig_b2, use_container_width=True, key="p3_ot_bubble")
+        st.plotly_chart(fig_b2, width='stretch', key="p3_ot_bubble")
 
     # ── COMPANY REPUTATION ─────────────────────────────────────────────
     elif feature == "Company Reputation":
@@ -167,13 +167,13 @@ def show():
             color_continuous_scale=["#22C55E","#F59E0B","#EF4444"])
         fig3.update_layout(height=300, xaxis_title="Left Rate (%)", coloraxis_showscale=False,
             paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)")
-        st.plotly_chart(fig3, use_container_width=True, key="p3_rep_bar")
+        st.plotly_chart(fig3, width='stretch', key="p3_rep_bar")
 
         c1,c2 = st.columns(2)
         with c1:
             pie3 = px.pie(df_f, names="Company Reputation", hole=0.4)
             pie3.update_layout(title="Reputation Mix", height=300)
-            st.plotly_chart(pie3, use_container_width=True, key="p3_rep_pie")
+            st.plotly_chart(pie3, width='stretch', key="p3_rep_pie")
         with c2:
             bub3 = df_f.groupby("Company Reputation").agg(
                 Total=("Attrition","count"),
@@ -183,7 +183,7 @@ def show():
             fig_b3 = px.scatter(bub3, x="Company Reputation", y="Left_Rate", size="Total", color="Avg_Inc",
                 size_max=60, color_continuous_scale="Blues")
             fig_b3.update_layout(height=300, yaxis_title="Left Rate (%)")
-            st.plotly_chart(fig_b3, use_container_width=True, key="p3_rep_bubble")
+            st.plotly_chart(fig_b3, width='stretch', key="p3_rep_bubble")
         st.markdown("</div>", unsafe_allow_html=True)
 
     # ── DISTANCE ───────────────────────────────────────────────────────
@@ -197,7 +197,7 @@ def show():
             text=dist_df["Left_Rate"].map(lambda v: f"{v:.1f}%"))
         fig4.update_traces(line_color="#2563EB", marker=dict(size=10, color="#EF4444"), textposition="top center")
         fig4.update_layout(height=300, yaxis_title="Left Rate (%)", paper_bgcolor="rgba(0,0,0,0)")
-        st.plotly_chart(fig4, use_container_width=True, key="p3_dist_line")
+        st.plotly_chart(fig4, width='stretch', key="p3_dist_line")
 
         pie4 = px.pie(df_f, names="Distance Category", hole=0.4)
         bub4 = df_f.groupby("Distance Category", observed=False).agg(
@@ -207,8 +207,8 @@ def show():
         fig_b4 = px.scatter(bub4, x="Distance Category", y="Left_Rate", size="Total", color="Left_Rate",
             size_max=70, color_continuous_scale=["#22C55E","#F59E0B","#EF4444"])
         c1,c2 = st.columns(2)
-        with c1: st.plotly_chart(pie4, use_container_width=True, key="p3_dist_pie")
-        with c2: st.plotly_chart(fig_b4, use_container_width=True, key="p3_dist_bubble")
+        with c1: st.plotly_chart(pie4, width='stretch', key="p3_dist_pie")
+        with c2: st.plotly_chart(fig_b4, width='stretch', key="p3_dist_bubble")
         st.markdown("</div>", unsafe_allow_html=True)
 
     # ── INNOVATION & LEADERSHIP ──────────────────────────────────────
@@ -221,13 +221,13 @@ def show():
                 text=inn_df["Left_Rate"].map(lambda v: f"{v:.1f}%"),
                 color="Left_Rate", color_continuous_scale=["#22C55E","#EF4444"])
             fig5.update_layout(height=280, showlegend=False, paper_bgcolor="rgba(0,0,0,0)")
-            st.plotly_chart(fig5, use_container_width=True, key="p3_innov_bar")
+            st.plotly_chart(fig5, width='stretch', key="p3_innov_bar")
         with col2:
             fig6 = px.bar(lead_df, x="Leadership Opportunities", y="Left_Rate",
                 text=lead_df["Left_Rate"].map(lambda v: f"{v:.1f}%"),
                 color="Left_Rate", color_continuous_scale=["#22C55E","#EF4444"])
             fig6.update_layout(height=280, showlegend=False, paper_bgcolor="rgba(0,0,0,0)")
-            st.plotly_chart(fig6, use_container_width=True, key="p3_lead_bar")
+            st.plotly_chart(fig6, width='stretch', key="p3_lead_bar")
 
         combo = df_f.groupby(["Innovation Opportunities","Leadership Opportunities"]).agg(
             Total=("Attrition","count"),
@@ -238,5 +238,5 @@ def show():
             color_continuous_scale=["#22C55E","#F59E0B","#EF4444"],
             hover_data={"Left_Rate":":.1f"})
         fig_b5.update_layout(height=350, title="Bubble: Innovation vs Leadership Impact")
-        st.plotly_chart(fig_b5, use_container_width=True, key="p3_innov_lead_bubble")
+        st.plotly_chart(fig_b5, width='stretch', key="p3_innov_lead_bubble")
 

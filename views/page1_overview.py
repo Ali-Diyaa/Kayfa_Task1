@@ -117,7 +117,7 @@ def show():
             fig_pie.update_layout(margin=dict(t=10,b=10,l=10,r=10), height=280,
                 paper_bgcolor="rgba(0,0,0,0)", showlegend=True,
                 legend=dict(orientation="h", x=0.15, y=-0.05))
-            st.plotly_chart(fig_pie, use_container_width=True,key="p1_pie")
+            st.plotly_chart(fig_pie, width='stretch',key="p1_pie")
             st.markdown('</div>', unsafe_allow_html=True)
 
     with col_r:
@@ -136,7 +136,7 @@ def show():
             fig_bar.update_layout(xaxis_title="Left Rate (%)", xaxis=dict(range=[0,80]),
                 margin=dict(t=10,b=10,l=10,r=40), height=260,
                 paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)")
-            st.plotly_chart(fig_bar, use_container_width=True,key="p1_bar")
+            st.plotly_chart(fig_bar, width='stretch',key="p1_bar")
             st.markdown('</div>', unsafe_allow_html=True)
 
     # ── Age & Tenure ─────────────────────────────────────────────────
@@ -150,7 +150,7 @@ def show():
             fig_age.update_layout(margin=dict(t=10,b=10,l=10,r=10), height=240,
                 paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)",
                 legend_title_text="", xaxis_title="Age", yaxis_title="Count")
-            st.plotly_chart(fig_age, use_container_width=True,key="p1_age")
+            st.plotly_chart(fig_age, width='stretch',key="p1_age")
             st.markdown('</div>', unsafe_allow_html=True)
 
     with col_b:
@@ -162,7 +162,7 @@ def show():
             fig_ten.update_layout(margin=dict(t=10,b=10,l=10,r=10), height=240,
                 paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)",
                 legend_title_text="", xaxis_title="Years at Company", yaxis_title="Count")
-            st.plotly_chart(fig_ten, use_container_width=True,key="p1_tenure")
+            st.plotly_chart(fig_ten, width='stretch',key="p1_tenure")
             st.markdown('</div>', unsafe_allow_html=True)
 
     st.markdown("""

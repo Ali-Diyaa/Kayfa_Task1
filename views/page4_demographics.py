@@ -93,7 +93,7 @@ def show():
                 ))
                 fig.update_layout(yaxis_title="Left Rate (%)", height=300,
                     margin=dict(t=20,b=20,l=20,r=20), paper_bgcolor="rgba(0,0,0,0)")
-                st.plotly_chart(fig, use_container_width=True, key="p4_marital_bar")
+                st.plotly_chart(fig, width='stretch', key="p4_marital_bar")
 
                 st.markdown('<div class="section-title">Bubble: Marital Status Profile</div>', unsafe_allow_html=True)
                 mar_sum = df.groupby("Marital Status").agg(
@@ -107,7 +107,7 @@ def show():
                     color="Left_Rate", hover_name="Marital Status", size_max=60,
                     color_continuous_scale=["#22C55E","#F59E0B","#EF4444"])
                 fig_b.update_layout(height=300, xaxis_title="Avg Age", yaxis_title="Avg Income")
-                st.plotly_chart(fig_b, use_container_width=True, key="p4_marital_bubble")
+                st.plotly_chart(fig_b, width='stretch', key="p4_marital_bubble")
                 st.markdown('</div>', unsafe_allow_html=True)
 
         with col_r:
@@ -130,7 +130,7 @@ def show():
                 fig2 = px.histogram(df, x="Age", color="Attrition", nbins=20, barmode="overlay", opacity=0.7,
                     color_discrete_map={"Stayed":"#2563EB","Left":"#EF4444"})
                 fig2.update_layout(height=320, margin=dict(t=10,b=10,l=10,r=10), paper_bgcolor="rgba(0,0,0,0)")
-                st.plotly_chart(fig2, use_container_width=True, key="p4_age_hist")
+                st.plotly_chart(fig2, width='stretch', key="p4_age_hist")
                 st.markdown('</div>', unsafe_allow_html=True)
         with col_r:
             with st.container():
@@ -145,7 +145,7 @@ def show():
                     color="Left_Rate", color_continuous_scale=["#22C55E","#F59E0B","#EF4444"])
                 fig3.update_traces(textposition="outside")
                 fig3.update_layout(height=320, yaxis_title="Left Rate (%)", coloraxis_showscale=False)
-                st.plotly_chart(fig3, use_container_width=True, key="p4_age_band")
+                st.plotly_chart(fig3, width='stretch', key="p4_age_band")
                 st.markdown('</div>', unsafe_allow_html=True)
 
         with st.container():
@@ -160,7 +160,7 @@ def show():
             fig_age_b = px.scatter(age_sum, x="Age Band", y="Avg_Tenure", size="Total", color="Left_Rate",
                 size_max=60, color_continuous_scale=["#22C55E","#F59E0B","#EF4444"])
             fig_age_b.update_layout(height=300, yaxis_title="Avg Tenure (yrs)")
-            st.plotly_chart(fig_age_b, use_container_width=True, key="p4_age_bubble")
+            st.plotly_chart(fig_age_b, width='stretch', key="p4_age_bubble")
             st.markdown('</div>', unsafe_allow_html=True)
 
     elif feature == "Education Level":
@@ -173,7 +173,7 @@ def show():
                 color="Left_Rate", color_continuous_scale=["#22C55E","#F59E0B","#EF4444"])
             fig4.update_traces(textposition="outside")
             fig4.update_layout(height=300, yaxis_title="Left Rate (%)", coloraxis_showscale=False)
-            st.plotly_chart(fig4, use_container_width=True, key="p4_edu_bar")
+            st.plotly_chart(fig4, width='stretch', key="p4_edu_bar")
 
             st.markdown('<div class="section-title">Bubble: Education vs Income</div>', unsafe_allow_html=True)
             edu_sum = df.groupby("Education Level").agg(
@@ -185,7 +185,7 @@ def show():
             fig_edu_b = px.scatter(edu_sum, x="Education Level", y="Avg_Income", size="Total",
                 color="Left_Rate", size_max=60, color_continuous_scale=["#22C55E","#F59E0B","#EF4444"])
             fig_edu_b.update_layout(height=300, yaxis_title="Avg Monthly Income")
-            st.plotly_chart(fig_edu_b, use_container_width=True, key="p4_edu_bubble")
+            st.plotly_chart(fig_edu_b, width='stretch', key="p4_edu_bubble")
             st.markdown('</div>', unsafe_allow_html=True)
 
     else:
@@ -202,7 +202,7 @@ def show():
                     textposition="outside", width=0.35
                 ))
                 fig5.update_layout(height=280, yaxis_title="Left Rate (%)")
-                st.plotly_chart(fig5, use_container_width=True, key="p4_gender_bar")
+                st.plotly_chart(fig5, width='stretch', key="p4_gender_bar")
                 st.markdown('</div>', unsafe_allow_html=True)
         with col_r:
             with st.container():
@@ -219,6 +219,6 @@ def show():
                     color="Left_Rate", hover_name="Gender", size_max=70,
                     color_continuous_scale=["#22C55E","#F59E0B","#EF4444"])
                 fig_g.update_layout(height=280, xaxis_title="Avg Distance (km)", yaxis_title="% with Overtime")
-                st.plotly_chart(fig_g, use_container_width=True, key="p4_gender_bubble")
+                st.plotly_chart(fig_g, width='stretch', key="p4_gender_bubble")
                 st.markdown('</div>', unsafe_allow_html=True)
 
