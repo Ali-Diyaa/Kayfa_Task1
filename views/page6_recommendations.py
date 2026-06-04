@@ -119,7 +119,7 @@ LOW_IMPACT = [
 def show():
     st.markdown("""
     <div class="page-header">
-        <h1>🎯 Key Findings & Recommendations</h1>
+        <h1> Key Findings & Recommendations</h1>
         <p>A prioritized action roadmap for HR based on the strongest attrition drivers in this dataset.</p>
     </div>
     """, unsafe_allow_html=True)
@@ -177,10 +177,10 @@ def show():
                         </div>
                     </div>
                     <div class="insight-box" style="margin-bottom:.5rem">
-                        <strong>📌 Insight:</strong> {f['insight']}
+                        <strong> Insight:</strong> {f['insight']}
                     </div>
                     <div class="rec-box">
-                        <strong>💡 Action:</strong> {f['recommendation']}
+                        <strong> Action:</strong> {f['recommendation']}
                     </div>
                 </div>
                 """, unsafe_allow_html=True)
@@ -211,7 +211,7 @@ def show():
     <div style="background:linear-gradient(135deg,#0A2463 0%,#1447A6 100%);
          border-radius:16px;padding:2rem 2.5rem;color:white">
         <div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:1.2rem;
-             font-weight:800;margin-bottom:1rem">🏁 Executive Summary</div>
+             font-weight:800;margin-bottom:1rem"> Executive Summary</div>
         <p style="opacity:.9;line-height:1.7;font-size:.93rem;margin-bottom:1rem">
         The strongest levers for reducing employee attrition are:
         <strong style="color:#FCD34D">Job Level progression</strong>,

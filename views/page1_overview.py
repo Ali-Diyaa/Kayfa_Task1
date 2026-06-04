@@ -81,8 +81,8 @@ def show():
     
     kpis = [
         (c1, "Total Employees", f"{total:,}", "#2563EB", "Full dataset"),
-        (c2, "Attrition Rate", f"{left_pct:.1f}%", "#EF4444", f"⬆ {left_n:,} left"),
-        (c3, "Retention Rate", f"{stayed_pct:.1f}%", "#22C55E", f"✔ {stayed_n:,} stayed"),
+        (c2, "Attrition Rate", f"{left_pct:.1f}%", "#EF4444", f" {left_n:,} left"),
+        (c3, "Retention Rate", f"{stayed_pct:.1f}%", "#22C55E", f" {stayed_n:,} stayed"),
         (c4, "Avg Monthly Income", f"${avg_income:,.0f}", "#F59E0B", "All employees"),
         (c5, "Avg Tenure", f"{avg_tenure:.1f} yrs", "#6366F1", "Years at company"),
     ]
@@ -167,7 +167,7 @@ def show():
 
     st.markdown("""
     <div class="insight-box">
-        📌 <strong>Dataset Context:</strong> The dataset contains <strong>train + test records merged</strong>,
+         <strong>Dataset Context:</strong> The dataset contains <strong>train + test records merged</strong>,
         with a near-balanced split — <strong>47.5% left</strong> vs <strong>52.5% stayed</strong>.
         The analysis covers 15 features spanning demographics, career progression, and workplace culture.
     </div>

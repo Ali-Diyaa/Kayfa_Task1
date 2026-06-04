@@ -116,13 +116,13 @@ def show():
                 st.markdown('<div class="section-card">', unsafe_allow_html=True)
                 st.markdown('<div class="section-title">Key Insight</div>', unsafe_allow_html=True)
                 st.markdown(f"""
-                <div class="insight-box">📉 WLB improves → attrition drops:
+                <div class="insight-box"> WLB improves → attrition drops:
                 <span class="badge badge-red">Poor {poor:.0f}%</span>
                 <span class="badge badge-amber">Fair {fair:.0f}%</span>
                 <span class="badge badge-green">Good {good:.0f}%</span>
                 <span class="badge badge-blue">Excellent {exc:.0f}%</span></div>
-                <div class="insight-box">🔥 Poor→Excellent = <strong>~{(poor-exc):.0f}pp</strong> reduction — highest-impact lever.</div>
-                <div class="rec-box">💡 Implement flexible hours, no-meeting days, mental health days.</div>
+                <div class="insight-box"> Poor→Excellent = <strong>~{(poor-exc):.0f}pp</strong> reduction — highest-impact lever.</div>
+                <div class="rec-box"> Implement flexible hours, no-meeting days, mental health days.</div>
                 """, unsafe_allow_html=True)
                 st.markdown('</div>', unsafe_allow_html=True)
 
@@ -157,8 +157,8 @@ def show():
                 st.markdown('<div class="section-card">', unsafe_allow_html=True)
                 st.markdown('<div class="section-title">Key Insight</div>', unsafe_allow_html=True)
                 st.markdown("""
-                <div class="insight-box">🏅 Low recognition = higher attrition — feeling unseen drives exits.</div>
-                <div class="rec-box">💡 Build monthly shout-outs and manager appreciation rituals.</div>
+                <div class="insight-box"> Low recognition = higher attrition — feeling unseen drives exits.</div>
+                <div class="rec-box"> Build monthly shout-outs and manager appreciation rituals.</div>
                 """, unsafe_allow_html=True)
                 st.markdown('</div>', unsafe_allow_html=True)
 
@@ -192,9 +192,9 @@ def show():
                 st.markdown('<div class="section-card">', unsafe_allow_html=True)
                 st.markdown('<div class="section-title">Key Insight</div>', unsafe_allow_html=True)
                 st.markdown("""
-                <div class="insight-box">📊 Performance shows moderate effect — low performers leave more.</div>
+                <div class="insight-box"> Performance shows moderate effect — low performers leave more.</div>
                 <div class="insight-box">⚠ High performers also leave if not recognized.</div>
-                <div class="rec-box">💡 Track top-performer flight risk separately.</div>
+                <div class="rec-box"> Track top-performer flight risk separately.</div>
                 """, unsafe_allow_html=True)
                 st.markdown('</div>', unsafe_allow_html=True)
 
@@ -213,8 +213,8 @@ def show():
                 st.plotly_chart(fig4, width='stretch', key="p5_size_bar")
             with c_r:
                 st.markdown("""
-                <div class="insight-box" style="margin-top:1rem">🏢 Size shows minimal variation (~47-50% across all).</div>
-                <div class="rec-box">💡 Culture > size for retention.</div>
+                <div class="insight-box" style="margin-top:1rem"> Size shows minimal variation (~47-50% across all).</div>
+                <div class="rec-box"> Culture > size for retention.</div>
                 """, unsafe_allow_html=True)
 
             st.markdown('<div class="section-title">Bubble: Company Size Profile</div>', unsafe_allow_html=True)

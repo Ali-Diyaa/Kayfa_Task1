@@ -106,10 +106,10 @@ def show():
             st.markdown("<div class='section-card'>", unsafe_allow_html=True)
             st.markdown("<div class='section-title'>Key Insight</div>", unsafe_allow_html=True)
             st.markdown("""
-            <div class="insight-box">🔴 <strong>Entry-level employees are the most at-risk</strong> — nearly <strong>2 out of 3</strong> leave.</div>
-            <div class="insight-box">🟡 Mid-level attrition at <strong>45%</strong> — still a significant challenge.</div>
-            <div class="insight-box">🟢 Senior employees are stable — only <strong>1 in 5</strong> leaves.</div>
-            <div class="rec-box">💡 <strong>Recommendation:</strong> Invest in onboarding, mentorship, and fast-track paths for entry-level.</div>
+            <div class="insight-box"> <strong>Entry-level employees are the most at-risk</strong> — nearly <strong>2 out of 3</strong> leave.</div>
+            <div class="insight-box"> Mid-level attrition at <strong>45%</strong> — still a significant challenge.</div>
+            <div class="insight-box"> Senior employees are stable — only <strong>1 in 5</strong> leaves.</div>
+            <div class="rec-box"> <strong>Recommendation:</strong> Invest in onboarding, mentorship, and fast-track paths for entry-level.</div>
             """, unsafe_allow_html=True)
             st.markdown("</div>", unsafe_allow_html=True)
 
@@ -151,9 +151,9 @@ def show():
             st.markdown("<div class='section-card'>", unsafe_allow_html=True)
             st.markdown("<div class='section-title'>Key Insight</div>", unsafe_allow_html=True)
             st.markdown("""
-            <div class="insight-box">📉 <strong>0 promotions</strong> = highest attrition — stagnation breeds turnover.</div>
-            <div class="insight-box">📈 Each promotion drops attrition meaningfully.</div>
-            <div class="rec-box">💡 <strong>Recommendation:</strong> Transparent, merit-based promotion framework.</div>
+            <div class="insight-box"> <strong>0 promotions</strong> = highest attrition — stagnation breeds turnover.</div>
+            <div class="insight-box"> Each promotion drops attrition meaningfully.</div>
+            <div class="rec-box"> <strong>Recommendation:</strong> Transparent, merit-based promotion framework.</div>
             """, unsafe_allow_html=True)
             st.markdown("</div>", unsafe_allow_html=True)
 
@@ -188,8 +188,8 @@ def show():
         st.markdown("</div>", unsafe_allow_html=True)
 
         st.markdown("""
-        <div class="insight-box">💰 Lower-income shows higher leave tendency, but effect is <strong>moderate</strong> — not decisive.</div>
-        <div class="rec-box">💡 <strong>Recommendation:</strong> Benchmark entry-level salaries and close gaps.</div>
+        <div class="insight-box"> Lower-income shows higher leave tendency, but effect is <strong>moderate</strong> — not decisive.</div>
+        <div class="rec-box"> <strong>Recommendation:</strong> Benchmark entry-level salaries and close gaps.</div>
         """, unsafe_allow_html=True)
 
     # ── Tenure ───────────────────────────────────────────────────────────────
@@ -227,9 +227,9 @@ def show():
             st.markdown("<div class='section-card'>", unsafe_allow_html=True)
             st.markdown("<div class='section-title'>Key Insight</div>", unsafe_allow_html=True)
             st.markdown("""
-            <div class="insight-box">⏱ Attrition concentrated in <strong>first 5 years</strong>.</div>
-            <div class="insight-box">🔒 Past 5 years = much higher retention.</div>
-            <div class="rec-box">💡 <strong>Recommendation:</strong> 90-day, 1-year, 3-year check-ins.</div>
+            <div class="insight-box"> Attrition concentrated in <strong>first 5 years</strong>.</div>
+            <div class="insight-box"> Past 5 years = much higher retention.</div>
+            <div class="rec-box"> <strong>Recommendation:</strong> 90-day, 1-year, 3-year check-ins.</div>
             """, unsafe_allow_html=True)
             st.markdown("</div>", unsafe_allow_html=True)
 

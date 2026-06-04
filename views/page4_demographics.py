@@ -115,9 +115,9 @@ def show():
                 st.markdown('<div class="section-card">', unsafe_allow_html=True)
                 st.markdown('<div class="section-title">Key Insight</div>', unsafe_allow_html=True)
                 st.markdown(f"""
-                <div class="insight-box">💍 <strong>Single ({s_r:.0f}%)</strong> leave at nearly double the rate of married ({m_r:.0f}%).</div>
-                <div class="insight-box">🏠 Family stability creates stronger commitment.</div>
-                <div class="rec-box">💡 Target young singles with mentorship & social programs.</div>
+                <div class="insight-box"> <strong>Single ({s_r:.0f}%)</strong> leave at nearly double the rate of married ({m_r:.0f}%).</div>
+                <div class="insight-box"> Family stability creates stronger commitment.</div>
+                <div class="rec-box"> Target young singles with mentorship & social programs.</div>
                 """, unsafe_allow_html=True)
                 st.markdown('</div>', unsafe_allow_html=True)
 

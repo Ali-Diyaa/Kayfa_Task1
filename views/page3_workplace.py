@@ -28,7 +28,7 @@ def show():
 
     st.markdown("""
     <div class="page-header">
-        <h1>🏡 Workplace & Flexibility</h1>
+        <h1> Workplace & Flexibility</h1>
         <p>How remote work, overtime, company reputation, distance, and innovation culture drive attrition.</p>
     </div>
     """, unsafe_allow_html=True)
@@ -64,10 +64,10 @@ def show():
 
     c1, c2, c3, c4 = st.columns(4)
     for col, label, val, color, tag in [
-        (c1, "Remote – Left", f"{r_yes:.1f}%", "#22C55E", "✅ Remote"),
-        (c2, "On-site – Left", f"{r_no:.1f}%", "#EF4444", "🏢 On-site"),
-        (c3, "Overtime – Left", f"{o_yes:.1f}%", "#EF4444", "⏰ With OT"),
-        (c4, "No OT – Left", f"{o_no:.1f}%", "#22C55E", "😌 No OT"),
+        (c1, "Remote – Left", f"{r_yes:.1f}%", "#22C55E", " Remote"),
+        (c2, "On-site – Left", f"{r_no:.1f}%", "#EF4444", " On-site"),
+        (c3, "Overtime – Left", f"{o_yes:.1f}%", "#EF4444", " With OT"),
+        (c4, "No OT – Left", f"{o_no:.1f}%", "#22C55E", " No OT"),
     ]:
         with col:
             st.markdown(f"""
@@ -80,7 +80,7 @@ def show():
     st.markdown("<div class='divider'></div>", unsafe_allow_html=True)
 
     # ── SELECTBOX ────────────────────────────────────────────────────────
-    feature = st.selectbox("🔍 Choose Workplace Factor",
+    feature = st.selectbox(" Choose Workplace Factor",
         ["Remote Work", "Overtime", "Company Reputation", "Distance from Home", "Innovation & Leadership"],
         key="page3_feature_select")
 
@@ -107,8 +107,8 @@ def show():
         with col_r:
             st.markdown("<div class='section-card'><div class='section-title'>Key Insight</div>", unsafe_allow_html=True)
             diff = abs(r_no - r_yes)
-            st.markdown(f"""<div class="insight-box">🏠 Remote workers have <strong>{diff:.1f} pp lower</strong> attrition — strongest workplace factor.</div>
-            <div class="rec-box">💡 Expand hybrid policies, especially for >30km commuters.</div>""", unsafe_allow_html=True)
+            st.markdown(f"""<div class="insight-box"> Remote workers have <strong>{diff:.1f} pp lower</strong> attrition — strongest workplace factor.</div>
+            <div class="rec-box"> Expand hybrid policies, especially for >30km commuters.</div>""", unsafe_allow_html=True)
             st.markdown("</div>", unsafe_allow_html=True)
 
         st.markdown("<div class='section-card'><div class='section-title'>Bubble: Remote vs Distance & Income</div>", unsafe_allow_html=True)
@@ -144,8 +144,8 @@ def show():
             st.markdown("</div>", unsafe_allow_html=True)
         with col_r:
             st.markdown("<div class='section-card'><div class='section-title'>Key Insight</div>", unsafe_allow_html=True)
-            st.markdown("""<div class="insight-box">⏰ Overtime = significantly higher attrition — burnout signal.</div>
-            <div class="rec-box">💡 Monitor OT by team, rebalance workload.</div>""", unsafe_allow_html=True)
+            st.markdown("""<div class="insight-box"> Overtime = significantly higher attrition — burnout signal.</div>
+            <div class="rec-box"> Monitor OT by team, rebalance workload.</div>""", unsafe_allow_html=True)
             st.markdown("</div>", unsafe_allow_html=True)
 
         bub2 = df_f.groupby(["Overtime","Job Level"]).agg(
