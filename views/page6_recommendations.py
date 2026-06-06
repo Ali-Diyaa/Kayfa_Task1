@@ -3,7 +3,8 @@ PAGE 6 – Key Findings & Recommendations
 """
 import streamlit as st
 import plotly.graph_objects as go
-
+import pandas as pd
+from pathlib import Path
 FINDINGS = [
     {
         "rank": 1,
@@ -116,115 +117,140 @@ LOW_IMPACT = [
     ("🏭", "Company Size",        "Small vs large difference is minimal (~3 pp). Size is not a meaningful predictor."),
 ]
 
+@st.cache_data
+def load_data():
+    try:
+        df = pd.read_csv("employee_attrition_full.csv")
+    except FileNotFoundError:
+        train = pd.read_csv("train.csv")
+        test = pd.read_csv("test.csv")
+        df = pd.concat([train, test], ignore_index=True)
+    return df
+
 def show():
+    df = load_data()
+    logo_path = Path(__file__).resolve().parent.parent / "kayfaio_logo.jpg"
+
+    title_col, logo_col = st.columns([6, 1])
+    with title_col:
+        st.markdown("## Key Findings & Recommendations")
+    
+    with logo_col:
+        if logo_path.exists():
+            st.image(str(logo_path), width=200)
+
+    baseline = (df["Attrition"] == "Left").mean() * 100
+
     st.markdown("""
     <div class="page-header">
-        <h1> Key Findings & Recommendations</h1>
+        <h1>🎯 Key Findings & Recommendations</h1>
         <p>A prioritized action roadmap for HR based on the strongest attrition drivers in this dataset.</p>
     </div>
     """, unsafe_allow_html=True)
 
-    # ── Summary radar / impact chart ─────────────────────────────────────────
+    # ── Q9 & Q10 MANAGER ANSWERS ────────────────────
+    st.markdown("<div class='section-card'>", unsafe_allow_html=True)
+    st.markdown("<div class='section-title'>Q9 & Q10: Direct Manager Questions</div>", unsafe_allow_html=True)
+
+    col_q9, col_q10 = st.columns(2)
+
+    with col_q9:
+        # Q9 calculation
+        q9 = df.groupby(['Overtime','Number of Promotions']).agg(
+            Total=('Attrition','count'),
+            Left=('Attrition', lambda x: (x=='Left').sum())
+        ).reset_index()
+        q9['Rate'] = q9['Left']/q9['Total']*100
+        q9['Lift'] = q9['Rate'] - baseline
+        q9_top = q9.sort_values('Rate', ascending=False).iloc[0]
+
+        st.markdown(f"""
+        <div class="insight-box" style="border-left-color:#EF4444">
+            <strong>Q9 – Highest-Risk Profile:</strong><br>
+            <strong>Overtime = Yes AND Promotions = 0</strong><br>
+            • Attrition: <strong>{q9_top['Rate']:.1f}%</strong> (vs {baseline:.1f}% baseline)<br>
+            • Lift: <strong>+{q9_top['Lift']:.1f} pp</strong><br>
+            • Population: <strong>{int(q9_top['Total']):,} employees</strong> ({int(q9_top['Left']):,} left)
+        </div>
+        """, unsafe_allow_html=True)
+
+    with col_q10:
+        # Q10 calculation - top 3 drivers
+        drivers = []
+        for col in ['Marital Status', 'Years at Company', 'Remote Work', 'Overtime']:
+            tmp = df.groupby(col).agg(Total=('Attrition','count'), Left=('Attrition', lambda x: (x=='Left').sum())).reset_index()
+            tmp['Rate'] = tmp['Left']/tmp['Total']*100
+            tmp['Lift'] = tmp['Rate'] - baseline
+            tmp['Driver'] = col
+            tmp = tmp.rename(columns={col: 'Value'})
+            drivers.append(tmp[['Driver','Value','Total','Rate','Lift']])
+        q10 = pd.concat(drivers)
+        q10 = q10[q10['Total'] >= 300].sort_values('Lift', ascending=False).head(3)
+
+        q10_html = "<div class='insight-box' style='border-left-color:#F59E0B'><strong>Q10 – Top 3 Drivers:</strong><br>"
+        for i, row in q10.iterrows():
+            q10_html += f"{int(i+1)}. <strong>{row['Driver']} = {row['Value']}</strong> → {row['Rate']:.1f}% (+{row['Lift']:.1f}pp)<br>"
+        q10_html += "</div>"
+        st.markdown(q10_html, unsafe_allow_html=True)
+
+    st.markdown("</div>", unsafe_allow_html=True)
+
+    # ── YOUR ORIGINAL IMPACT CHART ─────────────────
     st.markdown("<div class='section-card'>", unsafe_allow_html=True)
     st.markdown("<div class='section-title'>Top Attrition Drivers — Impact Summary</div>", unsafe_allow_html=True)
 
-    labels  = [f["factor"] for f in FINDINGS[:8]]
-    scores  = [5,5,4,4,4,4,3,3]  # approximate impact levels
-    colors  = [f["impact_color"] for f in FINDINGS[:8]]
+    labels = [f["factor"] for f in FINDINGS[:8]]
+    scores = [5,5,4,4,4,4,3,3]
+    colors = [f["impact_color"] for f in FINDINGS[:8]]
 
-    fig = go.Figure(go.Bar(
-        y=labels[::-1], x=scores[::-1],
-        orientation="h",
+    fig = go.Figure(go.Bar(y=labels[::-1], x=scores[::-1], orientation="h",
         marker_color=colors[::-1],
         text=["Very High","Very High","High","High","High","High","Moderate","Moderate"][::-1],
-        textposition="inside",
-        insidetextanchor="middle",
-    ))
-    fig.update_layout(
-        xaxis=dict(visible=False), yaxis_title="",
-        margin=dict(t=10,b=10,l=10,r=10), height=300,
-        paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)",
-        font=dict(family="Plus Jakarta Sans", size=13)
-    )
-    st.plotly_chart(fig, width='stretch',key="p6_impact_chart")
+        textposition="inside"))
+    fig.update_layout(xaxis=dict(visible=False), height=300, margin=dict(t=10,b=10,l=10,r=10),
+        paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)")
+    st.plotly_chart(fig, use_container_width=True, key="p6_impact_chart")
     st.markdown("</div>", unsafe_allow_html=True)
 
     st.markdown("<div class='divider'></div>", unsafe_allow_html=True)
 
-    # ── Detailed findings cards ──────────────────────────────────────────────
-    st.markdown("""
-    <div class="section-title" style="font-family:'Plus Jakarta Sans',sans-serif;
-         font-size:1.15rem;font-weight:700;color:#0A2463;margin-bottom:1.2rem">
-        📋 Prioritized Action Cards
-    </div>
-    """, unsafe_allow_html=True)
+    # ── KEEP ALL YOUR ORIGINAL FINDINGS CARDS ───────
+    st.markdown("""<div class="section-title" style="font-family:'Plus Jakarta Sans',sans-serif;
+         font-size:1.15rem;font-weight:700;color:#0A2463;margin-bottom:1.2rem">📋 Prioritized Action Cards</div>""", unsafe_allow_html=True)
 
     for i in range(0, len(FINDINGS), 2):
         cols = st.columns(2)
         for j, col in enumerate(cols):
-            if i + j >= len(FINDINGS):
-                break
+            if i + j >= len(FINDINGS): break
             f = FINDINGS[i + j]
             with col:
                 st.markdown(f"""
                 <div class="section-card" style="border-top:4px solid {f['impact_color']}; margin-bottom:1rem">
                     <div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.8rem">
                         <span style="font-size:1.5rem">{f['icon']}</span>
-                        <div>
-                            <div style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;
-                                 font-size:1rem;color:#0A2463">{f['rank']}. {f['factor']}</div>
-                            <span class="badge {f['badge_class']}">{f['impact']} Impact</span>
-                        </div>
-                    </div>
-                    <div class="insight-box" style="margin-bottom:.5rem">
-                        <strong> Insight:</strong> {f['insight']}
-                    </div>
-                    <div class="rec-box">
-                        <strong> Action:</strong> {f['recommendation']}
-                    </div>
-                </div>
-                """, unsafe_allow_html=True)
+                        <div><div style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;
+                             font-size:1rem;color:#0A2463">{f['rank']}. {f['factor']}</div>
+                            <span class="badge {f['badge_class']}">{f['impact']} Impact</span></div></div>
+                    <div class="insight-box" style="margin-bottom:.5rem"><strong>Insight:</strong> {f['insight']}</div>
+                    <div class="rec-box"><strong>Action:</strong> {f['recommendation']}</div>
+                </div>""", unsafe_allow_html=True)
 
-    # ── Low impact factors ───────────────────────────────────────────────────
+    # ── KEEP LOW IMPACT ─────────────────────────────
     st.markdown("<div class='divider'></div>", unsafe_allow_html=True)
-    st.markdown("<div class='section-card'>", unsafe_allow_html=True)
-    st.markdown("<div class='section-title'>Low-Impact Factors — Context Only</div>", unsafe_allow_html=True)
-    st.markdown("<p style='font-size:.88rem;color:#64748B;margin-bottom:1rem'>These variables show minimal or confounded relationships with attrition and should not drive primary retention strategy.</p>", unsafe_allow_html=True)
-
+    st.markdown("<div class='section-card'><div class='section-title'>Low-Impact Factors — Context Only</div>", unsafe_allow_html=True)
     cols6 = st.columns(3)
     for idx, (icon, label, note) in enumerate(LOW_IMPACT):
         with cols6[idx % 3]:
-            st.markdown(f"""
-            <div style="background:#F8FAFC;border:1px solid #E2E8F0;border-radius:10px;
-                 padding:.9rem 1rem;margin-bottom:.6rem">
-                <div style="font-size:1.2rem;margin-bottom:.3rem">{icon}</div>
-                <div style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;
-                     font-size:.9rem;color:#0A2463;margin-bottom:.3rem">{label}</div>
-                <div style="font-size:.82rem;color:#64748B;line-height:1.5">{note}</div>
-            </div>
-            """, unsafe_allow_html=True)
+            st.markdown(f"""<div style="background:#F8FAFC;border:1px solid #E2E8F0;border-radius:10px;
+                 padding:.9rem 1rem;margin-bottom:.6rem"><div style="font-size:1.2rem">{icon}</div>
+                <div style="font-weight:700;font-size:.9rem;color:#0A2463">{label}</div>
+                <div style="font-size:.82rem;color:#64748B">{note}</div></div>""", unsafe_allow_html=True)
     st.markdown("</div>", unsafe_allow_html=True)
 
-    # ── Final summary box ────────────────────────────────────────────────────
+    # ── Executive Summary ───────────────────────────
     st.markdown("<div class='divider'></div>", unsafe_allow_html=True)
     st.markdown("""
-    <div style="background:linear-gradient(135deg,#0A2463 0%,#1447A6 100%);
-         border-radius:16px;padding:2rem 2.5rem;color:white">
-        <div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:1.2rem;
-             font-weight:800;margin-bottom:1rem"> Executive Summary</div>
-        <p style="opacity:.9;line-height:1.7;font-size:.93rem;margin-bottom:1rem">
-        The strongest levers for reducing employee attrition are:
-        <strong style="color:#FCD34D">Job Level progression</strong>,
-        <strong style="color:#FCD34D">Work-Life Balance</strong>,
-        <strong style="color:#FCD34D">Remote Work availability</strong>,
-        <strong style="color:#FCD34D">Promotion frequency</strong>,
-        <strong style="color:#FCD34D">Overtime management</strong>, and
-        <strong style="color:#FCD34D">Early-tenure engagement</strong>.
-        </p>
-        <p style="opacity:.85;line-height:1.7;font-size:.88rem;margin:0">
-        Demographic factors (gender, education, age) have limited standalone predictive power.
-        A focused retention strategy targeting entry-level employees, early-tenure staff,
-        and WLB improvements can realistically reduce attrition by 15–25 percentage points.
-        </p>
-    </div>
-    """, unsafe_allow_html=True)
+    <div style="background:linear-gradient(135deg,#0A2463 0%,#1447A6 100%);border-radius:16px;padding:2rem 2.5rem;color:white">
+        <div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:1.2rem;font-weight:800;margin-bottom:1rem">Executive Summary</div>
+        <p style="opacity:.9;line-height:1.7;font-size:.93rem">The strongest levers are <strong style="color:#FCD34D">Job Level</strong>, <strong style="color:#FCD34D">Work-Life Balance</strong>, <strong style="color:#FCD34D">Remote Work</strong>, <strong style="color:#FCD34D">Promotions</strong>, <strong style="color:#FCD34D">Overtime</strong>, and <strong style="color:#FCD34D">Marital Status (Single)</strong>.</p>
+    </div>""", unsafe_allow_html=True)
