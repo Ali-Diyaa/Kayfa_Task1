@@ -5,12 +5,7 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
-
-col_title, col_logo = st.columns([6,1])
-with col_title:
-    st.markdown("## Employee Attrition Intelligence Dashboard")
-with col_logo:
-    st.image("kayfaio_logo.jpg", width=500)
+from pathlib import Path
 
 
 @st.cache_data
@@ -30,6 +25,15 @@ def load_data():
 
 def show():
     df = load_data()
+    logo_path = Path(__file__).resolve().parent.parent / "kayfaio_logo.jpg"
+
+    title_col, logo_col = st.columns([6, 1])
+    with title_col:
+        st.markdown("## Employee Attrition Intelligence Dashboard")
+    
+    with logo_col:
+        if logo_path.exists():
+            st.image(str(logo_path), width=200)
 
     # ── CSS ─────────────────────────────────────────
     st.markdown("""
