@@ -28,13 +28,13 @@ def show():
     df = load_data()
     logo_path = Path(__file__).resolve().parent.parent / "kayfaio_logo.jpg"
 
-    title_col, logo_col = st.columns([6, 1])
+    title_col, logo_col = st.columns([6, 2])
     with title_col:
         st.markdown("## Work-Life Balance & Wellbeing")
     
     with logo_col:
         if logo_path.exists():
-            st.image(str(logo_path), width=200)
+            st.image(str(logo_path), width=300)
 
     st.markdown("""
     <div class="page-header">

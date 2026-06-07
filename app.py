@@ -39,7 +39,7 @@ st.markdown("""
 }
 /* FORCE WHITE APP BACKGROUND */
 html, body,.stApp, [data-testid="stAppViewContainer"], [data-testid="stHeader"], [class*="css"] {
-    background-color: var(--white)!important;
+    background-color: var(--white);
     color: #1E293B;
     font-family: 'DM Sans', sans-serif;
 }
@@ -68,20 +68,31 @@ html, body,.stApp, [data-testid="stAppViewContainer"], [data-testid="stHeader"],
 </style>
 """, unsafe_allow_html=True)
 
+# ── Sidebar branding (keep this) ──────────────────
 with st.sidebar:
-    st.sidebar.title("Kayfa")
-    try: st.image("kayfa_logo.png", width='stretch')
-    except Exception: st.markdown("### 🏢 Kayfa")
-    st.markdown("---"); st.markdown("**NAVIGATION**")
-    page = st.radio("Navigation", ["🏠 Overview","📈 Attrition by Job & Career","🏡 Workplace & Flexibility","🧑🤝🧑 Demographics","⚖ Work-Life & Wellbeing","🎯 Key Findings & Recommendations"], label_visibility="collapsed")
-    st.markdown("---"); st.markdown("Employee Attrition Analysis \n`Dataset: Train + Test merged`")
+    st.title("Kayfa")
+    try: 
+        st.image("kayfa_logo.png", use_container_width=True)
+    except: 
+        st.markdown("### 🏢 Kayfa")
+    st.caption("Employee Attrition Analysis")
 
-# ── Page routing ──────────────────────────────────────────────────────────
-if "Overview" in page: import views.page1_overview as pg # Q1 goes here
-elif "Job & Career" in page: import views.page2_job_career as pg # Q4, Q5, Q8 go here
-elif "Workplace" in page: import views.page3_workplace as pg # Q2, Q3 go here
-elif "Demographics" in page: import views.page4_demographics as pg # Q7 goes here
-elif "Wellbeing" in page: import views.page5_wellbeing as pg # Q6 goes here
-elif "Key Findings" in page: import views.page6_recommendations as pg # Q9, Q10 go here
+# ── Native multipage navigation ───────────────────
+import views.page1_overview as p1
+import views.page2_job_career as p2
+import views.page3_workplace as p3
+import views.page4_demographics as p4
+import views.page5_wellbeing as p5
+import views.page6_recommendations as p6
 
-pg.show()
+pages = [
+    st.Page(p1.show, title="Overview", icon="🏠", url_path="overview"),
+    st.Page(p2.show, title="Attrition by Job & Career", icon="📈", url_path="job-career"),
+    st.Page(p3.show, title="Workplace & Flexibility", icon="🏡", url_path="workplace"),
+    st.Page(p4.show, title="Demographics", icon="🧑‍🤝‍🧑", url_path="demographics"),
+    st.Page(p5.show, title="Work-Life & Wellbeing", icon="⚖️", url_path="wellbeing"),
+    st.Page(p6.show, title="Key Findings", icon="🎯", url_path="findings"),
+]
+
+pg = st.navigation(pages, position="sidebar")
+pg.run()

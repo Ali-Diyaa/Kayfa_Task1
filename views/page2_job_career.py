@@ -31,13 +31,13 @@ def show():
 
     logo_path = Path(__file__).resolve().parent.parent / "kayfaio_logo.jpg"
 
-    title_col, logo_col = st.columns([6, 1])
+    title_col, logo_col = st.columns([6, 2])
     with title_col:
         st.markdown("## Attrition by Job Level & Career Progression")
     
     with logo_col:
         if logo_path.exists():
-            st.image(str(logo_path), width=200)
+            st.image(str(logo_path), width=300)
 
     st.markdown("""
     <div class="page-header">
@@ -74,7 +74,7 @@ def show():
     if feature == "Job Level":
         col_l, col_r = st.columns([1.2, 1])
         with col_l:
-            st.markdown("<div class='section-card'>", unsafe_allow_html=True)
+            #
             st.markdown("<div class='section-title'>Attrition Rate by Job Level</div>", unsafe_allow_html=True)
             colors_jl = {"Entry":"#EF4444","Mid":"#F59E0B","Senior":"#22C55E"}
             order = ["Entry","Mid","Senior"]
@@ -86,7 +86,7 @@ def show():
             st.plotly_chart(fig, use_container_width=True, key="p2_job_bar")
             st.markdown("</div>", unsafe_allow_html=True)
         with col_r:
-            st.markdown("<div class='section-card'><div class='section-title'>Key Insight</div>", unsafe_allow_html=True)
+            #st.markdown("<div class='section-card'><div class='section-title'>Key Insight</div>", unsafe_allow_html=True)
             st.markdown("""
             <div class="insight-box"><strong>Entry-level = 63.3%</strong> attrition — nearly 2 in 3 leave.</div>
             <div class="insight-box">Mid-level = 45.4%, Senior = 20.3%.</div>
@@ -99,7 +99,7 @@ def show():
         promo_df = _rate_df(df, "Number of Promotions")
         col_l, col_r = st.columns([1.3, 1])
         with col_l:
-            st.markdown("<div class='section-card'>", unsafe_allow_html=True)
+            
             st.markdown("<div class='section-title'>Q8: Attrition by Number of Promotions</div>", unsafe_allow_html=True)
             fig2 = px.bar(promo_df.sort_values("Number of Promotions"),
                 x="Number of Promotions", y="Left_Rate",
@@ -115,7 +115,7 @@ def show():
             df['Stuck'] = (df['Number of Promotions']==0) & (df['Job Level'].isin(['Entry','Mid'])) & (df['Leadership Opportunities']=='No')
             stuck_rate = df[df['Stuck']]['Attrition'].eq('Left').mean()*100
             not_stuck_rate = df[~df['Stuck']]['Attrition'].eq('Left').mean()*100
-            st.markdown("<div class='section-card'><div class='section-title'>Q8: Career Stagnation</div>", unsafe_allow_html=True)
+            #st.markdown("<div class='section-card'><div class='section-title'>Q8: Career Stagnation</div>", unsafe_allow_html=True)
             st.markdown(f"""
             <div class="insight-box"><strong>0 promotions = 49.3%</strong> attrition vs <strong>3+ promotions = 24.1%</strong>.</div>
             <div class="insight-box">Stuck employees (0 promo + Entry/Mid + No leadership) leave at <strong>{stuck_rate:.1f}%</strong> vs <strong>{not_stuck_rate:.1f}%</strong> for others.</div>
@@ -125,7 +125,7 @@ def show():
 
     # ── MONTHLY INCOME + Q4 ───────────────────────────
     elif feature == "Monthly Income (Q4)":
-        st.markdown("<div class='section-card'>", unsafe_allow_html=True)
+        
         st.markdown("<div class='section-title'>Q4: Does Higher Pay Reduce Attrition Within the Same Level?</div>", unsafe_allow_html=True)
 
         df['Pay_Q'] = df.groupby('Job Level')['Monthly Income'].transform(lambda x: pd.qcut(x, 4, labels=['Q1 Low','Q2','Q3','Q4 High']))
@@ -148,7 +148,7 @@ def show():
     else:
         col_l, col_r = st.columns([1.3, 1])
         with col_l:
-            st.markdown("<div class='section-card'>", unsafe_allow_html=True)
+            
             st.markdown("<div class='section-title'>Q5: Retention Timeline by Years at Company</div>", unsafe_allow_html=True)
             ten = df.groupby('Years at Company').agg(Total=('Attrition','count'), Left=('Attrition', lambda x: (x=='Left').sum())).reset_index()
             ten['Rate'] = ten['Left']/ten['Total']*100

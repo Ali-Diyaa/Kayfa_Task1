@@ -27,20 +27,20 @@ def show():
     df = load_data()
     logo_path = Path(__file__).resolve().parent.parent / "kayfaio_logo.jpg"
 
-    title_col, logo_col = st.columns([6, 1])
+    title_col, logo_col = st.columns([6, 2])
     with title_col:
-        st.markdown("## Employee Attrition Intelligence Dashboard")
+        st.markdown("## Week #1 Task: Employee Attrition Intelligence Dashboard")
     
     with logo_col:
         if logo_path.exists():
-            st.image(str(logo_path), width=200)
+            st.image(str(logo_path), width=300)
 
     # ── CSS ─────────────────────────────────────────
     st.markdown("""
     <style>
    .page-header { margin-bottom: 20px; }
    .page-header h1 { font-size: 1.9rem; margin: 0; }
-   .page-header p { color: #64748B; margin-top: 6px; }
+   .page-header p { color: #FFFFFF; margin-top: 6px; }
    .kpi-card { background: white; padding: 16px 18px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
    .kpi-label { font-size: 0.85rem; color: #475569; margin-bottom: 6px; font-weight: 500; }
    .kpi-value { font-size: 1.9rem; font-weight: 700; line-height: 1.2; }
@@ -101,7 +101,7 @@ def show():
     col_l, col_r = st.columns([1, 1.6])
 
     with col_l:
-        st.markdown('<div class="section-card">', unsafe_allow_html=True)
+        
         st.markdown('<div class="section-title">Attrition Split</div>', unsafe_allow_html=True)
         fig_pie = go.Figure(go.Pie(
             labels=["Stayed", "Left"],
@@ -116,7 +116,7 @@ def show():
         st.markdown('</div>', unsafe_allow_html=True)
 
     with col_r:
-        st.markdown('<div class="section-card">', unsafe_allow_html=True)
+        
         st.markdown('<div class="section-title">Q1: Attrition by Job Role</div>', unsafe_allow_html=True)
         # highlight top role in red
         colors = ['#EF4444' if r == top_role['Job Role'] else '#93C5FD' for r in role_stats['Job Role']]
@@ -136,7 +136,7 @@ def show():
     # ── Age & Tenure ────────────────────────────────
     col_a, col_b = st.columns(2)
     with col_a:
-        st.markdown('<div class="section-card">', unsafe_allow_html=True)
+        
         st.markdown('<div class="section-title">Age Distribution</div>', unsafe_allow_html=True)
         fig_age = px.histogram(df, x="Age", color="Attrition", nbins=25, barmode="overlay", opacity=0.7,
             color_discrete_map={"Stayed": "#2563EB", "Left": "#EF4444"})
@@ -145,7 +145,7 @@ def show():
         st.markdown('</div>', unsafe_allow_html=True)
 
     with col_b:
-        st.markdown('<div class="section-card">', unsafe_allow_html=True)
+        
         st.markdown('<div class="section-title">Tenure Distribution</div>', unsafe_allow_html=True)
         fig_ten = px.histogram(df, x="Years at Company", color="Attrition", nbins=20, barmode="overlay", opacity=0.7,
             color_discrete_map={"Stayed": "#2563EB", "Left": "#EF4444"})

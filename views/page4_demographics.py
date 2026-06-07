@@ -28,19 +28,19 @@ def show():
     df = load_data()
     logo_path = Path(__file__).resolve().parent.parent / "kayfaio_logo.jpg"
 
-    title_col, logo_col = st.columns([6, 1])
+    title_col, logo_col = st.columns([6, 2])
     with title_col:
         st.markdown("## Demographics")
     
     with logo_col:
         if logo_path.exists():
-            st.image(str(logo_path), width=200)
+            st.image(str(logo_path), width=300)
 
     st.markdown("""
     <style>
  .page-header { margin-bottom: 20px; }
  .page-header h1 { font-size: 1.9rem; margin: 0; }
- .page-header p { color: #64748B; margin-top: 6px; }
+ .page-header p { color: #FFFFFF; margin-top: 6px; }
  .kpi-card { background: white; padding: 16px 18px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
  .kpi-label { font-size: 0.85rem; color: #475569; margin-bottom: 6px; font-weight: 500; }
  .kpi-value { font-size: 1.9rem; font-weight: 700; line-height: 1.2; }
