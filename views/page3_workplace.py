@@ -79,20 +79,32 @@ def show():
         key="page3_feature_select")
 
     # ── Q3 REMOTE WORK ──────────────────────────────
+    # ── Q3 REMOTE WORK ──────────────────────────────
     if "Remote" in feature:
         col_l, col_r = st.columns([1.2,1])
         with col_l:
-            st.markdown("<div class='section-card'><div class='section-title'>Q3: Attrition Rate – Remote vs On-site</div>", unsafe_allow_html=True)
-            fig = go.Figure(go.Bar(x=["Remote (Yes)","On-site (No)"], y=[r_yes,r_no],
-                marker_color=["#22C55E","#EF4444"], text=[f"{r_yes:.1f}%",f"{r_no:.1f}%"], textposition="outside", width=0.4))
-            fig.update_layout(yaxis_title="Left Rate (%)", height=280, margin=dict(t=20,b=20,l=20,r=20))
+            st.markdown("<div class='section-title'>Q3: Attrition Rate – Remote vs On-site</div>", unsafe_allow_html=True)
+            fig = go.Figure(go.Bar(
+                x=["Remote (Yes)","On-site (No)"], 
+                y=[r_yes, r_no],
+                marker_color=["#22C55E","#EF4444"], 
+                text=[f"{r_yes:.1f}%",f"{r_no:.1f}%"], 
+                textposition="outside", 
+                width=0.4
+            ))
+            fig.update_layout(
+                yaxis_title="Left Rate (%)", 
+                height=280, 
+                margin=dict(t=20,b=20,l=20,r=20),
+                plot_bgcolor='rgba(0,0,0,0)',
+                paper_bgcolor='rgba(0,0,0,0)'
+            )
             st.plotly_chart(fig, use_container_width=True, key="p3_remote_bar")
             st.markdown("</div>", unsafe_allow_html=True)
 
         with col_r:
-            st.markdown("<div class='section-card'><div class='section-title'>Q3 Insight</div>", unsafe_allow_html=True)
+            st.markdown("<div class='section-title'>Q3 Insight</div>", unsafe_allow_html=True)
             diff = r_no - r_yes
-            # exact numbers from your notebook
             st.markdown(f"""
             <div class="insight-box"><strong>Q3 Answer:</strong> Remote workers leave at <strong>24.7%</strong> vs <strong>52.8%</strong> for on-site — a <strong>28.1 percentage point</strong> reduction. Remote covers 19% of staff (14,198 employees).</div>
             <div class="rec-box"><strong>Recommendation:</strong> Expand hybrid policies, prioritize for >30km commuters.</div>
@@ -103,14 +115,14 @@ def show():
     elif "Overtime" in feature:
         col_l, col_r = st.columns([1.2,1])
         with col_l:
-            st.markdown("<div class='section-card'><div class='section-title'>Q2: Attrition Rate – Overtime vs No Overtime</div>", unsafe_allow_html=True)
+            st.markdown("<div class='section-title'>Q2: Attrition Rate – Overtime vs No Overtime</div>", unsafe_allow_html=True)
             fig2 = go.Figure(go.Bar(x=["Overtime Yes","Overtime No"], y=[o_yes,o_no],
                 marker_color=["#EF4444","#22C55E"], text=[f"{o_yes:.1f}%",f"{o_no:.1f}%"], textposition="outside", width=0.4))
             fig2.update_layout(yaxis_title="Left Rate (%)", height=280, margin=dict(t=20,b=20,l=20,r=20))
             st.plotly_chart(fig2, use_container_width=True, key="p3_ot_bar")
             st.markdown("</div>", unsafe_allow_html=True)
         with col_r:
-            st.markdown("<div class='section-card'><div class='section-title'>Q2 Insight</div>", unsafe_allow_html=True)
+            st.markdown("<div class='section-title'>Q2 Insight</div>", unsafe_allow_html=True)
             st.markdown(f"""
             <div class="insight-box"><strong>Q2 Answer:</strong> Overtime employees leave at <strong>51.5%</strong> vs <strong>45.5%</strong> without overtime — <strong>+6.0pp</strong> higher risk (12,534 of 24,341 left).</div>
             <div class="rec-box"><strong>Recommendation:</strong> Monitor OT weekly, cap at 10hrs, rebalance workload.</div>
@@ -120,7 +132,7 @@ def show():
     # ── OTHER FEATURES (keep yours) ─────────────────
     elif feature == "Company Reputation":
         rep_df = _rate_df(df_f, "Company Reputation").sort_values("Left_Rate")
-        st.markdown("<div class='section-card'><div class='section-title'>Attrition by Company Reputation</div>", unsafe_allow_html=True)
+        st.markdown("<div class='section-title'>Attrition by Company Reputation</div>", unsafe_allow_html=True)
         fig3 = px.bar(rep_df, x="Left_Rate", y="Company Reputation", orientation="h",
             text=rep_df["Left_Rate"].map(lambda v: f"{v:.1f}%"), color="Left_Rate",
             color_continuous_scale=["#22C55E","#F59E0B","#EF4444"])
@@ -131,7 +143,7 @@ def show():
     elif feature == "Distance from Home":
         df_f["Distance Category"] = pd.cut(df_f["Distance from Home"], bins=[0,10,30,50,100], labels=["1-10 km","10-30 km","30-50 km","50-100 km"])
         dist_df = _rate_df(df_f, "Distance Category")
-        st.markdown("<div class='section-card'><div class='section-title'>Attrition by Distance</div>", unsafe_allow_html=True)
+        st.markdown("<div class='section-title'>Attrition by Distance</div>", unsafe_allow_html=True)
         fig4 = px.line(dist_df, x="Distance Category", y="Left_Rate", markers=True, text=dist_df["Left_Rate"].map(lambda v: f"{v:.1f}%"))
         fig4.update_traces(line_color="#2563EB", textposition="top center")
         fig4.update_layout(height=300, yaxis_title="Left Rate (%)")

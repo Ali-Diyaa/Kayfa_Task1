@@ -149,7 +149,6 @@ def show():
     """, unsafe_allow_html=True)
 
     # ── Q9 & Q10 MANAGER ANSWERS ────────────────────
-    st.markdown("<div class='section-card'>", unsafe_allow_html=True)
     st.markdown("<div class='section-title'>Q9 & Q10: Direct Manager Questions</div>", unsafe_allow_html=True)
 
     col_q9, col_q10 = st.columns(2)
@@ -196,7 +195,6 @@ def show():
     st.markdown("</div>", unsafe_allow_html=True)
 
     # ── YOUR ORIGINAL IMPACT CHART ─────────────────
-    st.markdown("<div class='section-card'>", unsafe_allow_html=True)
     st.markdown("<div class='section-title'>Top Attrition Drivers — Impact Summary</div>", unsafe_allow_html=True)
 
     labels = [f["factor"] for f in FINDINGS[:8]]
@@ -237,7 +235,7 @@ def show():
 
     # ── KEEP LOW IMPACT ─────────────────────────────
     st.markdown("<div class='divider'></div>", unsafe_allow_html=True)
-    st.markdown("<div class='section-card'><div class='section-title'>Low-Impact Factors — Context Only</div>", unsafe_allow_html=True)
+    st.markdown("<div class='section-title'>Low-Impact Factors — Context Only</div>", unsafe_allow_html=True)
     cols6 = st.columns(3)
     for idx, (icon, label, note) in enumerate(LOW_IMPACT):
         with cols6[idx % 3]:

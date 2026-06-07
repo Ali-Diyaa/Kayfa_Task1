@@ -66,7 +66,6 @@ def show():
     if "Work-Life" in feature:
         col_l, col_r = st.columns([1.3, 1])
         with col_l:
-            st.markdown('<div class="section-card">', unsafe_allow_html=True)
             st.markdown('<div class="section-title">Attrition Rate by Work-Life Balance</div>', unsafe_allow_html=True)
             order_wlb = ["Poor","Fair","Good","Excellent"]
             wlb_df["Work-Life Balance"] = pd.Categorical(wlb_df["Work-Life Balance"], categories=order_wlb, ordered=True)
@@ -88,7 +87,7 @@ def show():
             st.markdown('</div>', unsafe_allow_html=True)
 
         with col_r:
-            st.markdown('<div class="section-card"><div class="section-title">Key Insights</div>', unsafe_allow_html=True)
+            st.markdown('<div class="section-title">Key Insights</div>', unsafe_allow_html=True)
             st.markdown(f"""
             <div class="insight-box">WLB improves → attrition drops:
             <span class="badge badge-red">Poor {poor:.0f}%</span>
@@ -106,7 +105,7 @@ def show():
         recog_df = _rate_df(df, "Employee Recognition").sort_values("Left_Rate", ascending=False)
         col_l, col_r = st.columns([1.3, 1])
         with col_l:
-            st.markdown('<div class="section-card"><div class="section-title">Attrition by Recognition Level</div>', unsafe_allow_html=True)
+            st.markdown('<div class="section-title">Attrition by Recognition Level</div>', unsafe_allow_html=True)
             fig2 = px.bar(recog_df, x="Employee Recognition", y="Left_Rate", text=recog_df["Left_Rate"].map(lambda v: f"{v:.1f}%"),
                 color="Left_Rate", color_continuous_scale=["#22C55E","#F59E0B","#EF4444"])
             fig2.update_traces(textposition="outside")
@@ -114,7 +113,7 @@ def show():
             st.plotly_chart(fig2, use_container_width=True, key="p5_recog_bar")
             st.markdown('</div>', unsafe_allow_html=True)
         with col_r:
-            st.markdown('<div class="section-card"><div class="section-title">Key Insight</div>', unsafe_allow_html=True)
+            st.markdown('<div class="section-title">Key Insight</div>', unsafe_allow_html=True)
             st.markdown("""<div class="insight-box">Low recognition = higher attrition — feeling unseen drives exits.</div>
             <div class="rec-box">Build monthly shout-outs and manager appreciation rituals.</div>""", unsafe_allow_html=True)
             st.markdown('</div>', unsafe_allow_html=True)
@@ -123,20 +122,20 @@ def show():
         perf_df = _rate_df(df, "Performance Rating").sort_values("Performance Rating")
         col_l, col_r = st.columns([1.3, 1])
         with col_l:
-            st.markdown('<div class="section-card"><div class="section-title">Attrition by Performance Rating</div>', unsafe_allow_html=True)
+            st.markdown('<div class="section-title">Attrition by Performance Rating</div>', unsafe_allow_html=True)
             fig3 = px.line(perf_df, x="Performance Rating", y="Left_Rate", markers=True, text=perf_df["Left_Rate"].map(lambda v: f"{v:.1f}%"))
             fig3.update_traces(line_color="#2563EB", textposition="top center")
             fig3.update_layout(height=300, yaxis_title="Left Rate (%)")
             st.plotly_chart(fig3, use_container_width=True, key="p5_perf_line")
             st.markdown('</div>', unsafe_allow_html=True)
         with col_r:
-            st.markdown('<div class="section-card"><div class="section-title">Key Insight</div>', unsafe_allow_html=True)
+            st.markdown('<div class="section-title">Key Insight</div>', unsafe_allow_html=True)
             st.markdown("""<div class="insight-box">Low performers leave most (57.1%), but high performers also leave if not recognized.</div>""", unsafe_allow_html=True)
             st.markdown('</div>', unsafe_allow_html=True)
 
     else:
         size_df = _rate_df(df, "Company Size")
-        st.markdown('<div class="section-card"><div class="section-title">Attrition by Company Size</div>', unsafe_allow_html=True)
+        st.markdown('<div class="section-title">Attrition by Company Size</div>', unsafe_allow_html=True)
         fig4 = px.bar(size_df, x="Company Size", y="Left_Rate", text=size_df["Left_Rate"].map(lambda v: f"{v:.1f}%"),
             color="Left_Rate", color_continuous_scale=["#22C55E","#F59E0B","#EF4444"])
         fig4.update_traces(textposition="outside")

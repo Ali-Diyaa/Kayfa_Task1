@@ -88,7 +88,7 @@ def show():
     if feature == "Marital Status":
         col_l, col_r = st.columns([1.2, 1])
         with col_l:
-            st.markdown('<div class="section-card"><div class="section-title">Attrition Rate by Marital Status</div>', unsafe_allow_html=True)
+            st.markdown('<div class="section-title">Attrition Rate by Marital Status</div>', unsafe_allow_html=True)
             order_m = mar_df.sort_values("Left_Rate", ascending=False)
             fig = go.Figure(go.Bar(x=order_m["Marital Status"], y=order_m["Left_Rate"],
                 marker_color=["#EF4444","#F59E0B","#22C55E"][:len(order_m)],
@@ -97,7 +97,7 @@ def show():
             st.plotly_chart(fig, use_container_width=True, key="p4_marital_bar")
             st.markdown('</div>', unsafe_allow_html=True)
         with col_r:
-            st.markdown('<div class="section-card"><div class="section-title">Key Insight</div>', unsafe_allow_html=True)
+            st.markdown('<div class="section-title">Key Insight</div>', unsafe_allow_html=True)
             st.markdown(f"""
             <div class="insight-box"><strong>Single ({s_r:.0f}%)</strong> leave at nearly double the rate of married ({m_r:.0f}%).</div>
             <div class="rec-box">Target young singles with mentorship & social programs.</div>
@@ -108,14 +108,14 @@ def show():
         #... (keep your exact Age code from before)
         col_l, col_r = st.columns([1.3, 1])
         with col_l:
-            st.markdown('<div class="section-card"><div class="section-title">Age Distribution by Attrition</div>', unsafe_allow_html=True)
+            st.markdown('<div class="section-title">Age Distribution by Attrition</div>', unsafe_allow_html=True)
             fig2 = px.histogram(df, x="Age", color="Attrition", nbins=20, barmode="overlay", opacity=0.7,
                 color_discrete_map={"Stayed":"#2563EB","Left":"#EF4444"})
             fig2.update_layout(height=320, margin=dict(t=10,b=10,l=10,r=10))
             st.plotly_chart(fig2, use_container_width=True, key="p4_age_hist")
             st.markdown('</div>', unsafe_allow_html=True)
         with col_r:
-            st.markdown('<div class="section-card"><div class="section-title">Attrition by Age Band</div>', unsafe_allow_html=True)
+            st.markdown('<div class="section-title">Attrition by Age Band</div>', unsafe_allow_html=True)
             df_ab = df.copy()
             df_ab["Age Band"] = pd.cut(df_ab["Age"], bins=[17,24,29,39,49,60], labels=["18-24","25-29","30-39","40-49","50+"])
             ab_df = pd.crosstab(df_ab["Age Band"], df_ab["Attrition"])
@@ -130,7 +130,7 @@ def show():
 
     elif feature == "Education Level":
         edu_df = _rate_df(df, "Education Level").sort_values("Left_Rate", ascending=False)
-        st.markdown('<div class="section-card"><div class="section-title">Attrition Rate by Education Level</div>', unsafe_allow_html=True)
+        st.markdown('<div class="section-title">Attrition Rate by Education Level</div>', unsafe_allow_html=True)
         fig4 = px.bar(edu_df, x="Education Level", y="Left_Rate", text=edu_df["Left_Rate"].map(lambda v: f"{v:.1f}%"),
             color="Left_Rate", color_continuous_scale=["#22C55E","#F59E0B","#EF4444"])
         fig4.update_traces(textposition="outside")
@@ -140,7 +140,7 @@ def show():
 
     else: # Gender
         gen_df = _rate_df(df, "Gender")
-        st.markdown('<div class="section-card"><div class="section-title">Attrition by Gender</div>', unsafe_allow_html=True)
+        st.markdown('<div class="section-title">Attrition by Gender</div>', unsafe_allow_html=True)
         fig5 = go.Figure(go.Bar(x=gen_df["Gender"], y=gen_df["Left_Rate"],
             marker_color=["#2563EB","#F59E0B"][:len(gen_df)],
             text=[f"{v:.1f}%" for v in gen_df["Left_Rate"]], textposition="outside", width=0.35))
@@ -150,7 +150,7 @@ def show():
 
     # ── Q7 NEW SECTION ──────────────────────────────────
     st.markdown("<div class='divider'></div>", unsafe_allow_html=True)
-    st.markdown('<div class="section-card"><div class="section-title">Q7: Life-Stage Risk (Age × Marital × Dependents)</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-title">Q7: Life-Stage Risk (Age × Marital × Dependents)</div>', unsafe_allow_html=True)
 
     df_q7 = df.copy()
     df_q7['Age_Bin'] = pd.cut(df_q7['Age'], bins=[17,24,34,44,60], labels=['<25','25-35','35-45','45+'])

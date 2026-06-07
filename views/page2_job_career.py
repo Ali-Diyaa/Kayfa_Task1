@@ -159,7 +159,6 @@ def show():
             st.markdown("</div>", unsafe_allow_html=True)
 
         with col_r:
-            st.markdown("<div class='section-card'><div class='section-title'>Q5 Insight</div>", unsafe_allow_html=True)
             st.markdown("""
             <div class="insight-box"><strong>Years 1-9 = danger zone:</strong> 52-54% attrition (peaks at Year 5: 53.8%, Year 9: 53.9%).</div>
             <div class="insight-box"><strong>Year 10+ = stability:</strong> drops to 44.5% and stays 41-46%.</div>
